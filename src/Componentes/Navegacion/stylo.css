@@ -1,0 +1,16 @@
+
+
+ar.nav {
+    height: 30px;
+    width: 100%;
+    position: fixed;
+    top: -100px;
+    transition-timing-function: ease-in;
+    transition-duration: 0.5s;
+}
+
+.navDesk {
+    top: 0px;
+    color: #1c1c1c;
+}
+
