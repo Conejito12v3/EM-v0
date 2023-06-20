@@ -60,7 +60,7 @@ function GaleriaPromoComponent() {
             <TituloComponent Titulo='Galeria' />
             <div className={classes.promo}>
                 <div data-aos='fade-right' className={classes.mosaico}>
-                    <img src="http://localhost:3000/staticFiles/imagenGenerica.png" alt="" />
+                    <img src="https://www.plans.com.mx/wp-content/uploads/Maz.jpeg" alt="" />
                 </div>
                 <div data-aos='fade-left' className={classes.descripcion}>
                     <h6><i>Autor</i></h6>

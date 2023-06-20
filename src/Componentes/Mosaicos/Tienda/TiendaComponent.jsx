@@ -28,7 +28,7 @@ const TiendaComponent = () => {
             <ArticuloDestComponent />
             <PreComponent nombre='Libros' />
             <ColeccionComponent 
-                img='http://localhost:3000/StaticFiles/ImagenGenerica.png'
+                img='https://upload.wikimedia.org/wikipedia/commons/4/4e/David_Teniers_d._J._008.jpg'
                 nombre='Colecciones'
                 descripcion='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut necessitatibus distinctio repellat, veritatis accusantium est dolorem ex voluptates at debitis ratione atque perferendis hic minus consectetur porro pariatur sint. Commodi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque est vitae neque ratione illo id totam nihil. Aliquam suscipit nam, saepe itaque earum ratione alias, nulla temporibus beatae eligendi aliquid.'
                 autor='Sebastian Rivera'

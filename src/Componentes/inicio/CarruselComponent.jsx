@@ -9,13 +9,13 @@ function CarruselComponent() {
     {
       title: 'Restaurante',
       subtitle: 'Abierto de 9 am a 9 pm',
-      imgSrc: 'http://localhost:3000/staticFiles/imagenGenericaMobile.png', 
+      imgSrc: 'https://resizer.otstatic.com/v2/photos/wide-huge/3/48728301.jpg', 
       height: ''+(window.innerHeight)+'px'
     }, 
     {
       title: 'Exposicion',
       subtitle: 'Una nueva exposicion cada 3 meses.',
-      imgSrc: 'http://localhost:3000/staticFiles/imagenGenericaMobile.png',
+      imgSrc: 'https://www.dondeir.com/wp-content/uploads/2018/04/comisario-de-exposiciones.jpg',
       height: ''+(window.innerHeight)+'px'
     }, 
     {
@@ -30,13 +30,13 @@ function CarruselComponent() {
     {
       title: 'Restaurante',
       subtitle: 'Abierto de 9 am a 9 pm',
-      imgSrc: 'http://localhost:3000/staticFiles/imagenGenerica.png',
+      imgSrc: 'https://resizer.otstatic.com/v2/photos/wide-huge/3/48728301.jpg',
       height: '83vh',
     }, 
     {
       title: 'Exposicion',
       subtitle: 'Una nueva exposicion cada 3 meses.',
-      imgSrc: 'http://localhost:3000/staticFiles/imagenGenerica.png', 
+      imgSrc: 'https://www.dondeir.com/wp-content/uploads/2018/04/comisario-de-exposiciones.jpg', 
       height: '83vh'
     }, 
     {

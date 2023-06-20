@@ -63,7 +63,7 @@ const RestaurantePromoComponent = () => {
                     </p>
                 </div>
                 <div data-aos='fade-right' className={classes.mosaico}>
-                    <img src="http://localhost:3000/staticFiles/imagenGenerica.png" alt="" />
+                    <img src="https://static.wixstatic.com/media/5cecee_78de0f63516c41f99bd9fe3b71dd2b13~mv2.jpg/v1/fill/w_560,h_572,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Image-empty-state.jpg" alt="" />
                 </div>
             </div>
         </div>

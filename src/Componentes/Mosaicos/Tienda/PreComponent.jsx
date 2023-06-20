@@ -144,9 +144,9 @@ const   PreComponent = (props) => {
                     <a href=""><h5>Ver Mas</h5></a>
                 </div>
                 <div className={classes.CardsContainer}>
-                    <ItemCard image="http://localhost:3000/StaticFiles/ImagenGenerica.png" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
-                    <ItemCard image="http://localhost:3000/StaticFiles/ImagenGenerica.png" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
-                    <ItemCard image="http://localhost:3000/StaticFiles/ImagenGenerica.png" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
+                    <ItemCard image="https://template.canva.com/EADtutwov_Q/1/0/256w-nJr37FPJeZs.jpg" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
+                    <ItemCard image="https://wl-genial.cf.tsp.li/resize/728x/jpg/ba3/e72/337d485c37af5cf13264ff037c.jpg" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
+                    <ItemCard image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzOkQZ0U3YDtLeMZ_DqPw5dohHGEHFKM13qg&usqp=CAU" name="Ursula Magazine Subscription" autor='Ursula' precio='10.00'/>
                 </div>
             </div>
         </div>

@@ -4,6 +4,8 @@ import '../styles/styles.css';
 import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
 
 const MenuIzqComponent = ({classes}) => {
+
+
     return (
             <div className={ classes.list }>
             <List>
@@ -30,17 +32,6 @@ const MenuIzqComponent = ({classes}) => {
                 <ListItem  button to='/tienda'>
                     <i className="material-icons">store</i>
                     <ListItemText classes={{primary: classes.ListItemText}} primary=" Shop" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem  button to='/curso/lista'>
-                    <i className="material-icons">account_circle</i>
-                    <ListItemText classes={{primary: classes.ListItemText}} primary=" Iniciar Sesión" />
-                </ListItem>
-                <ListItem  button to='/curso/lista'>
-                    <i className="material-icons">person_add</i>
-                    <ListItemText classes={{primary: classes.ListItemText}} primary=" Registrarse" />
                 </ListItem>
             </List>
         </div>
