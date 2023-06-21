@@ -46,6 +46,30 @@ export const registrarUsuario = (usuario) => {
     return new Promise((resolve, reject) => {
         instancia.post('/Usuario/Registrar', usuario).then(response => {
             resolve(response);
-        });
+        }).catch(error => { console.log(resolve(error.response)); resolve(error.response) });
     });
+}
+
+export const actualizarUsuario = (usuario) => {
+    return new Promise((resolve, reject) => {
+        instancia.put('/Usuario', usuario).then(response => {
+            resolve(response);
+        }).catch(error => { console.log(resolve(error.response)) });
+    });
+}
+
+export const enviarCodigo = (datos) => {
+    return new Promise((resolve, reject) => {
+        instancia.post('/Usuario', datos).then(response => {
+            resolve(response);
+        }).catch(error => { console.log(resolve(error.response)) });
+    });
+}
+
+export const cambiarPassword = (datos) => {
+    return new Promise((resolve, reject) => {
+        instancia.post('/Usuario/cambiarPassword', datos).then(response => {
+            resolve(response);
+        }).catch(error => { console.log(resolve(error.response)) });
+    })
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Avatar, Typography, TextField, Button } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { loginUsuario } from '../../Actions/usuarioAction.js';
+import { cambiarPassword, enviarCodigo, loginUsuario } from '../../Actions/usuarioAction.js';
 import { useStateValue } from '../../Context/store';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label } from 'reactstrap';
 
@@ -46,8 +46,17 @@ const LoginComponent = () => {
     const [{ sesionUsuario }, dispatch] = useStateValue();
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
+    const [modalPassword, setModalPassword] = useState(false);
     const [codigoEnviado, setCodigoEnviado] = useState(false);
     const [codigo, setCodigo] = useState('');
+    const [codigoIngresado, setCodigoIngresado] = useState('');
+    const [validarCodigoIngresado, setValidarCodigoIngresado] = useState(false);
+    const [validarCorre, setValidarCorreo] = useState(false);
+    const [validarPassword, setValidarPassword] = useState(false);
+    const [validarPasswordNueva, setValidarPasswordNueva] = useState(false);
+    const [validarPasswordNuevaC, setValidarPasswordNuevaC] = useState(false);
+    const [passwordNueva, setPasswordNueva] = useState('');
+    const [passwordNuevaC, setPasswordNuevaC] = useState('');
     const [usuario, setUsuario] = useState({
         Email: '',
         Password: ''
@@ -61,8 +70,37 @@ const LoginComponent = () => {
         }));
     }
 
+    const enviarCodigoAction = e => {
+        const codigoS = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+        setCodigo(codigoS);
+
+        let codigoE = {
+            correo: usuario.Email,
+            cuerpo: 'Su codigo de recuperacion es: ' + codigoS
+        }
+        
+        enviarCodigo(codigoE).then(response => {
+            setCodigoEnviado(true);
+        })
+
+        console.log(codigo);
+    }
+
     const iniciarSesion = e => {
         e.preventDefault();
+
+        if (usuario.Email === '') {
+            setValidarCorreo(true);
+        }
+
+        if (usuario.Password === '') {
+            setValidarPassword(true);
+        }
+
+        if (usuario.Email === '' || usuario.Password === '') {
+            return;
+        }
+
         loginUsuario(usuario, dispatch).then(response => {
             if(response.status === 200) {    
                 window.localStorage.setItem('token_seguridad', response.data.token);
@@ -72,7 +110,45 @@ const LoginComponent = () => {
                 console.log('Usuario o contraseña incorrectos');
             }
         }).catch(err =>{
-            
+            console.log(err);
+        });
+    }
+
+    const comprobarCodigo = () => {
+        if(codigoIngresado == codigo) {
+            setModal(false);
+            setModalPassword(true);
+        }
+    }
+
+    const cambiarPasswordAction = () => {
+        if (passwordNuevaC === '') {
+            setValidarPasswordNuevaC(true);
+        }
+
+        if (passwordNueva === '') {
+            setValidarPasswordNueva(true);
+        }
+
+        if (passwordNueva !== passwordNuevaC) {
+            alert('Las contraseñas no coinciden');
+        }
+
+        if (passwordNueva === '' || passwordNuevaC === '' || passwordNueva !== passwordNuevaC) {
+            return;
+        }
+
+        const parametros = {
+            Password: passwordNueva,
+            Email: usuario.Email
+        }
+
+        cambiarPassword(parametros).then(response => {
+            console.log('Contraseña cambiada');
+            setModalPassword(false);
+            alert('Contraseña cambiada con exito');
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -86,8 +162,8 @@ const LoginComponent = () => {
                     Login de Usuario
                 </Typography>
                 <form style={style.form}>
-                    <TextField name="Email" value={usuario.Email} onChange={ingresarValoresMemoria}  variant="outlined" label="Ingrese su email" fullWidth margin="normal" />
-                    <TextField name="Password" value={usuario.Password} onChange={ingresarValoresMemoria} variant="outlined" label="Ingrese su password" type="password" fullWidth margin="normal" />
+                    <TextField name="Email" value={usuario.Email} onChange={ingresarValoresMemoria}  variant="outlined" label="Ingrese su email" fullWidth margin="normal" required helperText={validarCorre ? "Campo requerido" : ""} error={validarCorre} />
+                    <TextField name="Password" value={usuario.Password} onChange={ingresarValoresMemoria} variant="outlined" label="Ingrese su password" type="password" fullWidth margin="normal" required helperText={validarPassword ? "Campo requerido" : ""} error={validarPassword} />
                     <Button type="submit" onClick={iniciarSesion} fullWidth variant="contained" style={style.submit} >
                         Enviar
                     </Button>
@@ -103,12 +179,45 @@ const LoginComponent = () => {
                     <ModalBody>
                         <FormGroup>
                             <Label for="usuario">Usuario</Label>
-                            <TextField name="Email" value={usuario.Email} onChange={ingresarValoresMemoria}  variant="outlined" label="Ingrese su email" fullWidth margin="normal" />
+                            <TextField name="Email" value={usuario.Email} onChange={ingresarValoresMemoria}  variant="outlined" label="Ingrese su email" fullWidth margin="normal" required helperText={validarCorre ? "Campo requerido" : ""} error={validarCorre} />
                         </FormGroup>
-                        <Button type="submit" onClick={e => {setCodigoEnviado(true)}} fullWidth variant="contained" style={style.submit} >
-                            Enviar codigo de confirmacion
-                        </Button>
+                        {
+                            codigoEnviado ? (
+                                <div>
+                                    <TextField name="Email" value={codigoIngresado} onChange={e => {setCodigoIngresado(e.target.value)}}  variant="outlined" label="Ingrese el codigo de verificacion" fullWidth margin="normal" required helperText={validarCodigoIngresado ? "Campo requerido" : ""} error={validarCodigoIngresado} />
+                                    <Button type="submit" onClick={comprobarCodigo} fullWidth variant="contained" style={style.submit} >
+                                        Comprobar codigo
+                                    </Button>
+                                </div>
+                            ) : (
+                                <Button type="submit" onClick={enviarCodigoAction} fullWidth variant="contained" style={style.submit} >
+                                    Enviar codigo de confirmacion
+                                </Button>
+                            )
+                        }
                         <Button type="submit" onClick={e => {setModal(false); setCodigoEnviado(false)}} fullWidth variant="contained" style={style.submit} >
+                            Cerrar
+                        </Button>
+                    </ModalBody>
+                </Modal>
+
+                <Modal isOpen={modalPassword} >
+                    <ModalHeader>
+                        Nueva contraseña:
+                    </ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            <Label for="usuario">Contraseña:</Label>
+                            <TextField name="Password" value={passwordNueva} onChange={(e) => {setPasswordNueva(e.target.value)}}  variant="outlined" label="Ingrese la nueva contraseña" fullWidth margin="normal" type='password' required helperText={validarPasswordNueva ? "Campo requerido" : ""} error={validarPasswordNueva} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="usuario">Comporbar contraseña:</Label>
+                            <TextField name="Password" value={passwordNuevaC} onChange={(e) => {setPasswordNuevaC(e.target.value)}}  variant="outlined" label="Ingrese la nueva contraseña" fullWidth margin="normal" type='password' required helperText={validarPasswordNuevaC ? "Campo requerido" : ""} error={validarPasswordNuevaC} />
+                        </FormGroup>
+                        <Button type="submit" onClick={cambiarPasswordAction} fullWidth variant="contained" style={style.submit} >
+                            Cambiar contraseña
+                        </Button>
+                        <Button type="submit" onClick={e => {setModalPassword(false);}} fullWidth variant="contained" style={style.submit} >
                             Cerrar
                         </Button>
                     </ModalBody>

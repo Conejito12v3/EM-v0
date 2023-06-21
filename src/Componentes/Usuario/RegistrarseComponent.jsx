@@ -58,12 +58,28 @@ const RegistrarseComponent = () => {
                 username: usuario.Username
             }
 
-            registrarUsuario(usuarioD).then(response => {
-                console.log(response);
-                window.localStorage.setItem('token_seguridad', response.data.token);
+            console.log(usuarioD);
 
-                navigate('/');
+            registrarUsuario(usuarioD).then(response => {
+                if (response.status === 200)
+                {
+                    console.log(response);
+                    window.localStorage.setItem('token_seguridad', response.data.token);
+                    navigate('/');
+                }
+                else 
+                {
+                    if (response.data.errores.mensaje) 
+                    {
+                        console.log(response.data)
+                        alert(response.data.errores.mensaje);
+                    } else {
+                        console.log(response.data)
+                        alert(response.data.errores);
+                    }
+                }
             }).catch(error => {
+                alert("La contraseña debe tener numeros y caracteres especiales")
                 setErrorContrasena("La contraseña debe tener numeros y caracteres especiales");
             });
         }
